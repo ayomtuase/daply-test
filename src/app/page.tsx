@@ -1,5 +1,6 @@
 "use client";
 
+import { MemoizedReactMarkdown } from "@/components/markdown";
 import { Settings } from "@/components/settings";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useState } from "react";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 
 export default function Home() {
   const [universalPrompt, setUniversalPrompt] = useState("");
@@ -61,7 +64,11 @@ export default function Home() {
                         : "bg-muted"
                     }`}
                   >
-                    {msg.content}
+                    <MemoizedReactMarkdown
+                      remarkPlugins={[remarkGfm, remarkMath]}
+                    >
+                      {msg.content}
+                    </MemoizedReactMarkdown>
                   </div>
                 </div>
               ))}
