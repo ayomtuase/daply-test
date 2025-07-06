@@ -48,7 +48,7 @@ export default function Home() {
           </div>
         </CardHeader>
         <CardContent>
-          <ScrollArea className="h-[400px] w-full pr-4">
+          <ScrollArea className="h-[400px] w-full">
             <div className="space-y-4">
               {messages.map((msg) => (
                 <div
@@ -58,7 +58,7 @@ export default function Home() {
                   }`}
                 >
                   <div
-                    className={`max-w-xs lg:max-w-md p-3 rounded-lg ${
+                    className={`max-w-[270px] lg:max-w-md p-3 rounded-lg overflow-auto ${
                       msg.role === "user"
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted"
@@ -66,6 +66,11 @@ export default function Home() {
                   >
                     <MemoizedReactMarkdown
                       remarkPlugins={[remarkGfm, remarkMath]}
+                      components={{
+                        li: ({ children }) => (
+                          <li className="mt-1">{children}</li>
+                        ),
+                      }}
                     >
                       {msg.content}
                     </MemoizedReactMarkdown>
