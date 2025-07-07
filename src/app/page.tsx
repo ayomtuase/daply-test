@@ -14,12 +14,13 @@ import remarkMath from "remark-math";
 
 export default function Home() {
   const [universalPrompt, setUniversalPrompt] = useState("");
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useChat({
-      body: {
-        universalPrompt,
-      },
-    });
+  const { messages, input, handleInputChange, handleSubmit, status } = useChat({
+    body: {
+      universalPrompt,
+    },
+  });
+
+  const isLoading = status === "streaming" || status === "submitted";
 
   useEffect(() => {
     const storedPrompt = localStorage.getItem("universalPrompt");
